@@ -1,2 +1,7 @@
-<h1>Welcome to SvelteKit</h1>
-<p>Visit <a href="https://kit.svelte.dev">kit.svelte.dev</a> to read the documentation</p>
+<article class="prose p-2">
+	<h2>Google Chrome</h2>
+	<p>
+		Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most
+		popular web browser today!
+	</p>
+</article>
