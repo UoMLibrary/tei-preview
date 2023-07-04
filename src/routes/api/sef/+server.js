@@ -1,6 +1,7 @@
+// src/routes/api/sef/+server.js
 import saxon from 'saxon-js';
 
-export const POST = async ({ request, params }) => {
+export const POST = async ({ request }) => {
 	const xslString = await request.text();
 	// Compile the supplied XSL String into a .sef file
 	let env = saxon.getPlatform();

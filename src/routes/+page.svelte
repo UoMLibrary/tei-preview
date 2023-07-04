@@ -1,3 +1,11 @@
+<script>
+	import { onMount } from 'svelte';
+
+	onMount(() => {
+		console.log(SaxonJS.transform);
+	});
+</script>
+
 <article class="prose p-2">
 	<h2>Google Chrome</h2>
 	<p>
