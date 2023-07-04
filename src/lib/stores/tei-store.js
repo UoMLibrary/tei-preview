@@ -44,7 +44,6 @@ function createTeiStore() {
 
 	function loadLocal() {
 		if (!localStorage.getItem('stringifiedTeiStore')) {
-			console.log('HERE');
 			return clear();
 		}
 		let localStoredValue = localStorage.getItem('stringifiedTeiStore');
