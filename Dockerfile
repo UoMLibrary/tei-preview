@@ -49,7 +49,7 @@ FROM node:18-alpine
 # RUN apk update
 # RUN apk add --update nodejs npm@latest
 COPY --from=build /app/package*.json /
-# COPY --from=build /app/build /
+COPY --from=build /app/build /
 COPY --from=build /app/healthcheck.mjs /
 RUN npm install 
 RUN npm config set fetch-retry-mintimeout 20000 
