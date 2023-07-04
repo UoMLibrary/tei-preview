@@ -1,15 +1,9 @@
-<script>
-	import { onMount } from 'svelte';
-
-	onMount(() => {
-		console.log(SaxonJS.transform);
-	});
-</script>
-
 <article class="prose p-2">
-	<h2>Google Chrome</h2>
+	<h2>Digital collection preview tool</h2>
 	<p>
-		Google Chrome is a web browser developed by Google, released in 2008. Chrome is the world's most
-		popular web browser today!
+		<a href="/preview/tool">Preview tool </a><span class="text-xs">
+			(There may be a delay if a large TEI is loaded)</span
+		>
 	</p>
+	<p><a href="/preview">Preview</a></p>
 </article>
