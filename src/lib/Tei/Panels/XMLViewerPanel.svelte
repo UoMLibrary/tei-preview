@@ -23,7 +23,7 @@
 	}
 </script>
 
-<div class="rounded-md bg-white mb-4 text-xs">
+<div class="rounded-md bg-white mb-4 text-xs pb-2">
 	<!-- Panel Header -->
 	<div class="flex border-b justify-between">
 		<div>

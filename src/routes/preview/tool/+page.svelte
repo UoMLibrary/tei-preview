@@ -116,7 +116,7 @@
 	}
 </script>
 
-<div class="m-4">
+<div class="p-4 bg-slate-300">
 	<!-- Preview tool Help Overview button -->
 	<div class="flex justify-end mb-2">
 		<button

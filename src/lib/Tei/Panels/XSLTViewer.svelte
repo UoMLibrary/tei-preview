@@ -64,7 +64,7 @@
 		</div>
 	</div>
 	<!-- Panel Body -->
-	<div class="m-4 text-xs">
+	<div class="m-4 text-xs pb-2">
 		{#if isLoading}
 			<div class="flex justify-center">
 				<Moon size="30" unit="px" duration="2s" color="purple" />

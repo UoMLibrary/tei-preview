@@ -30,7 +30,7 @@
 </script>
 
 <div
-	class="rounded-md bg-white mb-4 text-xs {status == 'ERROR' ? `border-4 border-red-400` : ''} 
+	class="rounded-md bg-white mb-4 text-xs pb-1 {status == 'ERROR' ? `border-4 border-red-400` : ''} 
 	{status == 'SUCCESS' ? `border-4 border-green-600` : ''}"
 >
 	<!-- Panel Header -->
