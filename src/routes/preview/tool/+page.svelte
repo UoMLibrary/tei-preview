@@ -11,6 +11,7 @@
 	import CudlJSONDoc from '$lib/markdown/CudlJSONDoc.js';
 	import ConfigDoc from '$lib/markdown/ConfigDoc.js';
 	import ViewModelDoc from '$lib/markdown/ViewModelDoc.js';
+	import PrintPanelDoc from '$lib/markdown/PrintPanelDoc.js';
 	import previewPanelDoc from '$lib/markdown/previewPanelDoc.js';
 
 	// Stores
@@ -33,6 +34,7 @@
 	import Modal from '$lib/UI/Modal.svelte';
 	import Icon from 'svelte-awesome';
 	import { faPlus, faChevronDown, faArrowDown } from '@fortawesome/free-solid-svg-icons';
+	import PrintPanel from '$lib/Tei/Panels/PrintPanel.svelte';
 
 	let showModal = false;
 	let page;
@@ -197,6 +199,14 @@
 		markdownHelp={ViewModelDoc}
 		message="View Model generation requires Cudl Output and Configuration be configured"
 	/>
+
+	<!-- down arrow (decorative) -->
+	<div class="flex justify-center mb-4">
+		<Icon data={faArrowDown} style="color: #666666" scale="1.2" />
+	</div>
+
+	<!-- Print panel to give option of downloading a pdf of available images -->
+	<PrintPanel title="Print pdf" markdownHelp={PrintPanelDoc} data={ViewModelOutput?.pdfObj} />
 
 	<!-- down arrow (decorative) -->
 	<div class="flex justify-center mb-4">
