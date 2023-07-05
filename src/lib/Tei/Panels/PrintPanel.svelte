@@ -10,7 +10,7 @@
 
 	// Printpage vars
 	export let data; // pdf data structure
-	export let cols = 4;
+	// export let cols = 4;
 
 	let progressText = '';
 	let isBuildingPdf = false;
@@ -20,7 +20,7 @@
 	}
 
 	// PRINT FUNCTIONS AND CALLBACKS
-	async function printItem() {
+	async function printItem(cols) {
 		if (!data || data.items.length === 0) return;
 
 		try {
@@ -85,11 +85,11 @@ let pdf_data = {
 			{#if title}<p class="p-1 px-2 font-bold text-sm">{title}</p>{/if}
 		</div>
 		<div class="flex py-1">
-			<div class="">
+			<!-- <div class="">
 				{#if !isBuildingPdf}
 					<button class="mr-2" on:click={(e) => printItem()}>Print</button>
 				{/if}
-			</div>
+			</div> -->
 			<!-- Open help button -->
 
 			{#if markdownHelp}
@@ -111,21 +111,17 @@ let pdf_data = {
 			</div>
 		{:else}
 			<div class="flex justify-between space-x-1">
-				<button
-					class="p-4 sm:p-8 bg-slate-300 rounded {cols == 1 ? 'bg-purple-300' : ''}"
-					on:click={(e) => setCols(1)}><div>1 Column</div></button
+				<button class="p-4 sm:p-8 bg-slate-300 rounded" on:click={(e) => printItem(1)}
+					><div>1 Column</div></button
 				>
-				<button
-					class="p-4 sm:p-8 bg-slate-300 rounded {cols == 2 ? 'bg-purple-300' : ''}"
-					on:click={(e) => setCols(2)}><div>2 Columns</div></button
+				<button class="p-4 sm:p-8 bg-slate-300 rounded" on:click={(e) => printItem(2)}
+					><div>2 Columns</div></button
 				>
-				<button
-					class="p-4 sm:p-8 bg-slate-300 rounded {cols == 3 ? 'bg-purple-300' : ''}"
-					on:click={(e) => setCols(3)}><div>3 Columns</div></button
+				<button class="p-4 sm:p-8 bg-slate-300 rounded" on:click={(e) => printItem(3)}
+					><div>3 Columns</div></button
 				>
-				<button
-					class="p-4 sm:p-8 bg-slate-300 rounded {cols == 4 ? 'bg-purple-300' : ''}"
-					on:click={(e) => setCols(4)}><div>4 Columns</div></button
+				<button class="p-4 sm:p-8 bg-slate-300 rounded" on:click={(e) => printItem(4)}
+					><div>4 Columns</div></button
 				>
 			</div>
 		{/if}
