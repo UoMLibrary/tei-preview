@@ -51,20 +51,25 @@ FROM node:18-alpine
 COPY --from=build /app/package*.json /
 COPY --from=build /app/build /
 COPY --from=build /app/healthcheck.mjs /
-RUN npm install 
-RUN npm config set fetch-retry-mintimeout 20000 
-HEALTHCHECK --interval=10s --timeout=2s --start-period=15s CMD ["node", "healthcheck.mjs"]
-CMD [ "node", "index.js"]
 
 # Sveltekit Issues 
-# npm install is included above to fix an issue that arose if the user 
+# npm install is included below to fix an issue that arose if the user 
 # reloaded a page or navigated directly to a route using the browser location.
 # It seems as if sveltekit is doing something under the hood to load modules
 # as required and jumping to a route directly misses something out
+RUN npm install 
+
+RUN npm config set fetch-retry-mintimeout 20000 
+HEALTHCHECK --interval=10s --timeout=2s --start-period=15s CMD ["node", "healthcheck.mjs"]
 
 # Pass through the ORIGIN to prevent cross scripting issues in Sverdle
 # When testing in the mdctools_web folder
 # ENV ORIGIN=http://localhost:3000 
 # When running from Docker compose
 # ENV ORIGIN=http://localhost:8000 
+ENV ORIGIN=http://localhost:3000
+CMD [ "node", "index.js"]
+
+
+
 
