@@ -1,0 +1,357 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+Version: 1.0 
+Author: James Stewart
+created: 2023-06-21T09:50
+Description: A work in progress XML document with a test comment
+-->
+<?xml-stylesheet type="text/xsl" href="../style/HAM_stylesheet.xsl"?>
+<TEI xmlns="http://www.tei-c.org/ns/1.0"
+    <teiHeader>
+<fileDesc>
+<titleStmt>
+<title type="item">Note from Queen Charlotte to Mary Hamilton</title>
+<title type="edition">The Mary Hamilton Papers</title>
+</titleStmt>
+<editionStmt>
+<edition>Complete electronic edition of the Hamilton Papers, in progress.
+</edition>
+<principal xml:id="HB">
+    <name>
+        <persName>Barker, Hannah</persName>
+        <affiliation>Professor, University of Manchester</affiliation>
+    </name>
+</principal>
+<editor xml:id="SC">
+    <name>
+        <persName>Coulombeau, Sophie</persName>
+        <affiliation>Lecturer, University of York</affiliation>
+    </name>
+</editor>
+<editor xml:id="DD">
+    <name>
+        <persName>Denison, David</persName>
+        <affiliation>Professor Emeritus, University of Manchester</affiliation>
+    </name>
+</editor>
+<editor xml:id="TO">
+    <name>
+        <persName>Oudesluijs, Tino</persName>
+        <affiliation>Research Associate, University of Manchester</affiliation>
+    </name>
+</editor>
+<editor xml:id="CU">
+    <name>
+        <persName>Ulph, Cassandra</persName>
+        <affiliation>Research Associate, University of Manchester</affiliation>
+    </name>
+</editor>
+<editor xml:id="CW">
+    <name>
+        <persName>Wallis, Christine</persName>
+        <affiliation>Research Associate, University of Manchester</affiliation>
+    </name>
+</editor>
+<editor xml:id="NYB">
+    <name>
+        <persName>YÃ¡Ã±ez-Bouza, Nuria</persName>
+        <affiliation>Senior Lecturer, University of Vigo</affiliation>
+        <affiliation>Honorary Research Fellow, University of Manchester</affiliation>
+    </name>
+</editor>
+<respStmt xml:id="AG">
+    <resp>transliterator</resp>
+    <name>
+        <persName>Gott, Andrew</persName>
+        <affiliation>dissertation student, University of Manchester</affiliation>
+    </name>
+</respStmt>
+<respStmt xml:id="IF">
+    <resp>TXT and XML encoder</resp>
+    <name>
+        <persName>Formisano, Isabella</persName>
+        <affiliation>former MA student, University of Manchester</affiliation>
+    </name>
+</respStmt>
+<respStmt xml:id="LC">
+    <resp>cataloguer</resp>
+    <name>
+        <persName>Crawley, Lisa</persName>
+        <affiliation>Archivist, The John Rylands Library</affiliation>
+    </name>
+</respStmt>
+<respStmt xml:id="JHo">
+    <resp>cataloguer</resp>
+    <name>
+        <persName>Hodgson, John</persName>
+        <affiliation>Head of Special Collections, John Rylands Research Institute and Library</affiliation>
+    </name>
+</respStmt>
+<respStmt xml:id="ImT">
+    <resp>imaging</resp>
+    <name>
+        <orgName>University of Manchester Library imaging team</orgName>
+    </name>
+</respStmt>
+<funder>XML version: Research Assistant funding in 2016/17 provided by The John Rylands Research Institute.</funder>
+</editionStmt>
+<extent>
+<measure unit="words" quantity="93">93 words</measure>
+</extent>
+<publicationStmt>
+<authority>First edited in the project 'Image to Text' (David Denison &amp; Nuria YÃ¡Ã±ez-Bouza, 2013-2019), now incorporated in the project 'Unlocking the Mary Hamilton Papers' (Hannah Barker, Sophie Coulombeau, David Denison, Tino Oudesluijs, Cassandra Ulph, Christine Wallis &amp; Nuria YÃ¡Ã±ez-Bouza, 2019-2023).</authority>
+<publisher>The University of Manchester</publisher>
+<ptr target="https://www.maryhamiltonpapers.alc.manchester.ac.uk/"/>
+<pubPlace>Manchester</pubPlace>
+<pubPlace>
+    <address>
+        <addrLine>School of Arts, Languages and Cultures</addrLine>
+        <addrLine>Samuel Alexander Building</addrLine>
+        <street>Oxford Road</street>
+        <settlement>Manchester</settlement>
+        <postCode>M13 9PL</postCode>
+    </address>
+</pubPlace>
+<availability status="restricted">
+    <p>Available under license only</p>
+</availability>
+<availability xml:id="displayImageRights" status="restricted">
+    <p>Zooming image Â© John Rylands Research Institute and Library, all rights reserved.</p>
+</availability>
+<availability xml:id="downloadImageRights" status="restricted">
+    <licence target="http://creativecommons.org/licenses/by-nc-nd/4.0/">Images made available for download are licensed under a Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).</licence>
+</availability>
+<!-- <availability xml:id="metadataRights" status="restricted">
+               <licence target="http://creativecommons.org/licenses/by-nc-nd/4.0/">Metadata (not including TEI-encoded transcription) made available for download is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).</licence>
+            </availability> -->
+<availability xml:id="teiEncodedTranscriptionRights" status="restricted">
+    <p>TEI-encoded transcriptions and notes Â© 'Unlocking the Mary Hamilton Papers' project, all rights reserved.</p>
+</availability>
+<availability xml:id="unencodedTranscriptionRights" status="restricted">
+    <licence target="http://creativecommons.org/licenses/by-nc-nd/4.0/">Transcriptions without TEI mark-up are licensed under a Creative Commons Attribution-NonCommercial 4.0 International License (CC BY-NC 4.0).</licence>
+</availability>
+</publicationStmt>
+<notesStmt>
+<relatedItem>
+    <ref>
+        <idno type="imagePDF">HAM-1-1-2-1.pdf</idno>
+    </ref>
+</relatedItem>
+</notesStmt>
+<sourceDesc>
+<msDesc xml:lang="eng">
+    <msIdentifier>
+        <country>United Kingdom</country>
+        <settlement>Manchester</settlement>
+        <institution>University of Manchester</institution>
+        <repository>John Rylands Research Institute and Library</repository>
+        <!-- <collection type="website">Manchester Digital Collections</collection> -->
+        <collection type="archive">Mary Hamilton Papers</collection>
+        <!-- <collection type="subarchive">GB 133 HAM/1 Correspondence</collection> -->
+        <!-- <collection type="series">GB 133 HAM/1/1 Correspondence from the Royal Family</collection> -->
+        <!-- <collection type="series">GB 133 HAM/1/1/2 Correspondence from Queen Charlotte</collection> -->
+        <!-- <collection type="number">1</collection> -->
+        <!-- <collection type="title">Note from Queen Charlotte to Mary Hamilton</collection> -->
+        <idno type="shelfmark">HAM/1/1/2/1</idno>
+    </msIdentifier>
+    <msContents>
+        <summary>
+            <seg type="para">Note from Queen Charlotte wishing Mary Hamilton well on her journey [she was to visit Eastbourne] and hoping that the sea proves beneficial to her. In the note Queen Charlotte asks Mary Hamilton to look upon her as a 'sincere friend' and sends her compliments to Mary Hamilton's 'visitor', Lady Stormont. [Louisa Stormont nÃ©e Cathcart (1758?-1843), later Countess of Mansfield. Lady Stormont was a cousin of Mary Hamilton's, the daughter of Lord Cathcart and Jean Hamilton, a sister of Hamilton's father. Louisa married David Murray, Seventh Earl of Stormont and second Earl of Mansfield in 1776 and after his death later married her second cousin, Robert Fulke Greville.]</seg>
+        </summary>
+        <msItem>
+            <title>Note from Queen Charlotte to Mary Hamilton</title>
+            <textLang mainLang="eng">English</textLang>
+            <author ref="psn:QC">Charlotte, Queen</author>
+        </msItem>
+    </msContents>
+    <physDesc>
+        <objectDesc>
+            <supportDesc>
+                <extent>
+                    <measure unit="sheets" quantity="1">1 sheet</measure>
+                </extent>
+                <condition>Well preserved.</condition>
+            </supportDesc>
+        </objectDesc>
+        <handDesc hands="1">
+            <handNote xml:id="major_hand" scope="major" medium="ink" scribe="author" scribeRef="psn:QC">Hand of writer of the main text, Queen Charlotte.</handNote>
+        </handDesc>
+    </physDesc>
+    <history>
+        <origin>
+            <origDate calendar="Gregorian" when="1780-06-11">11 June 1780</origDate>
+        </origin>
+    </history>
+</msDesc>
+</sourceDesc>
+</fileDesc>
+<encodingDesc>
+<projectDesc>
+<p>Letters first transliterated by a student as word processor files without XML mark-up, revised by a research assistant and completed as TEI/XML files. Project supervised by David Denison and Nuria YÃ¡Ã±ez-Bouza.</p>
+<p>This set submitted by a final-year undergraduate disertation student, Department of Linguistics and English Language, University of Manchester, Manchester (UK), June 2012.</p>
+</projectDesc>
+<listPrefixDef>
+<prefixDef ident="psn" matchPattern="([A-Za-z0-9]+)" replacementPattern="../personography/HAMpersons.xml#$1">
+    <p>Private URIs with the prefix "psn" can be converted to point to the personography.</p>
+</prefixDef>
+</listPrefixDef>
+</encodingDesc>
+<profileDesc>
+<correspDesc>
+<correspAction type="sent">
+    <persName ref="psn:QC">Charlotte, Queen</persName>
+    <placeName>London</placeName>
+    <date when="1780-06-11">11 June 1780</date>
+</correspAction>
+<correspAction type="received">
+    <persName ref="psn:MH">Hamilton, Mary</persName>
+    <placeName>unknown</placeName>
+</correspAction>
+<correspContext>
+    <ref type="next" target="AR-HAM-00001-00001-00002-00002.xml"/>
+</correspContext>
+</correspDesc>
+</profileDesc>
+<revisionDesc>
+<change when="2021-11-02" who="#DD">Addition of author element to msItem in header.</change>
+<change when="2021-09-01" who="#DD">Adjusted for psn prefix on person refs.</change>
+<change when="2020-08-16" who="#DD">Filename and TEI changes for MDC.</change>
+<change when="2020-08-03" who="#NYB">Revision of alignment and address-panel mark-up.</change>
+<change when="2020-07-21" who="#NYB">Added second collection type series in header.</change>
+<change when="2020-06-15" who="#NYB">Revision of salutation-related mark-up.</change>
+<change when="2020-04-02" who="#DD">Additions to header for JRL &amp; MDC conformance, and additions to prologue (global).</change>
+<change when="2019-04" who="#DD">Revised fileDesc in header (global).</change>
+<change when="2018-09" who="#DD">Revised paragraph and note tags.</change>
+<change when="2018-04" who="#DD">Revised TEI header (global).</change>
+<change when="2017-07" who="#DD">Rearranged TEI headers with correspDesc element (global).</change>
+<change when="2017-03" who="#IF">Revised transliteration and added TEI/XML mark-up.</change>
+<change when="2012-06" who="#AG">Transliteration submitted.</change>
+<change when="2012-03">Image made available.</change>
+<change when="2011-05" who="#LC">Catalogue made available online. https://archiveshub.jisc.ac.uk/manchesteruniversity/data/gb133-ham.</change>
+</revisionDesc>
+</teiHeader>
+<facsimile>
+<graphic decls="#document-thumbnail" rend="portrait" url="AR-HAM-00001-00001-00002-00001-000-00001.jp2"/>
+<surface xml:id="i1" n="1">
+<graphic n="JRL1207242" decls="#downloadImageRights #download" rend="portrait" height="3421px" width="2492px" url="AR-HAM-00001-00001-00002-00001-000-00001.jp2"/>
+</surface>
+<surface xml:id="i2" n="2">
+<graphic n="JRL1207243" decls="#downloadImageRights #download" rend="landscape" height="3401px" width="4993px" url="AR-HAM-00001-00001-00002-00001-000-00002.jp2"/>
+</surface>
+<surface xml:id="i3" n="3">
+<graphic n="JRL1207244" decls="#downloadImageRights #download" rend="portrait" height="3421px" width="2492px" url="AR-HAM-00001-00001-00002-00001-000-00003.jp2"/>
+</surface>
+</facsimile>
+<text xml:id="AR-HAM-00001-00001-00002-00001" xml:space="preserve">
+<body>
+<div>
+<div type="letter">
+
+    <pb n="1" xml:id="pb-1" facs="#i1"/>
+    <lb/>
+    <opener>
+        <salute n="opening">My dear <persName ref="psn:MH">MiÅ¿s Hamilton</persName>.
+        </salute>
+    </opener>
+    <p rend="inline">This little
+        <lb/>
+paper makes no <choice>
+        <orig>pretentions</orig>
+        <reg>pretensions</reg>
+    </choice> to a letter
+    <lb/>
+it only serves to convey You my
+    <lb/>
+sincere good wishes upon Your journey
+    <lb/>
+may every happineÅ¿s attend You -- 
+    <lb/>
+there as well as every where else,
+    <lb/>
+and may the Sea air prove <choice>
+    <sic>benificial</sic>
+    <corr>beneficial</corr>
+</choice>
+<lb/>
+to You and <rs ref="psn:tbc">all <add place="above">Your</add>
+<foreign xml:lang="fr">
+    <emph rend="underlined">compan<subst>
+        <del rend="cancelled">e</del>
+        <add place="inline">ge</add>
+    </subst>
+</emph> de <emph rend="underlined">voyages</emph>
+</foreign>
+</rs><!-- resp="#ASM" This refers to members of the Royal party that took the children to Eastbourne CU, ASM to revisit later -->
+<lb/>
+is the very sincere wish of a <unclear reason="indistinct">
+<subst>
+<del rend="overwritten">desire</del>
+<add place="inline">PerÅ¿on</add>
+</subst>
+</unclear>
+
+<lb/>
+<pb n="2" xml:id="pb-2" facs="#i2"/>
+<lb/>
+I desire You to look upon as             <!-- resp="#NYB" Salute. Agreed. -->
+<seg type="author">
+<rs ref="psn:QC">a sincere
+<lb/>
+Friend</rs>.
+</seg>
+</p>
+<lb rend="align-right"/>
+<closer>
+<signed>
+<persName ref="psn:QC">Charlotte</persName>
+</signed>
+<lb/>
+<dateline>
+<choice>
+<abbr>Q.</abbr>
+<expan>Queen's </expan>
+</choice>
+<choice>
+<abbr>H.</abbr>
+<expan>House</expan>
+</choice>
+<lb/>
+the <date when="1780-06-11">
+<choice>
+<sic>ii<hi rend="superscript">th</hi>
+</sic>
+<corr>11<hi rend="superscript">th</hi>
+</corr>
+</choice>- june<note resp="#DD">It seems likely that '11<hi rend="superscript">th</hi> June' was intended and the dots added in error.</note>
+<lb/>
+1780</date>.
+</dateline>
+</closer>
+<lb/>
+<lb/>
+<postscript>
+<p rend="indent">My Compliments to Your amiable
+<lb/>
+visitor, You gueÅ¿s I mean <persName ref="psn:LCM">Lady Stormont</persName>.
+</p>
+</postscript>
+<lb/>
+</div>
+<div type="address">
+
+<lb/>
+<pb n="3" xml:id="pb-3" facs="#i3"/>
+<lb/>
+<p>
+<address>
+<addrLine>To
+<lb/>
+<persName ref="psn:MH">MiÅ¿s Hamilton</persName>.
+</addrLine>
+</address>
+</p>
+</div>
+</div>
+</body>
+</text>
+</TEI>
