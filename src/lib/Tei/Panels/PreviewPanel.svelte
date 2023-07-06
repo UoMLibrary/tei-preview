@@ -1,16 +1,22 @@
 <script>
-	import Preview from '$lib/MDCUI/Preview.svelte';
-
+	// TODO: currently using a hardwired Preview, ideally pass in which one to use
+	// Possibly via a <slot/>
+	// import Preview from '$lib/MDCUI/Preview.svelte';
+	import Preview from '$lib/Tei/MDCPreview/Preview.svelte';
 	import Modal from '$lib/UI/Modal.svelte';
-	let showModal = false;
 
+	// Panel data
+	let showModal = false;
 	export let title = '';
 	export let markdownHelp;
+	export let message = '';
 
+	// Preview data
 	export let viewModel;
+	export let page = 1;
 </script>
 
-<div class="rounded-md bg-white mb-4 text-xs">
+<div class="rounded-md bg-white mb-4 text-xs pb-1">
 	<!-- Panel Header -->
 	<div class="flex border-b justify-between">
 		<div>
@@ -28,8 +34,12 @@
 	</div>
 	<!-- Panel Body -->
 	<div class="m-4">
-		<pre>{JSON.stringify(viewModel, null, 2)}</pre>
-		<Preview tei={viewModel} />
+		{#if !viewModel}
+			<div class="h-4">{message}</div>
+		{:else}
+			<!-- Pass the update page through to the parent component -->
+			<Preview {viewModel} {page} on:updatepage />
+		{/if}
 	</div>
 </div>
 

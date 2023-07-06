@@ -28,7 +28,7 @@
 	import XMLViewerPanel from '$lib/Tei/Panels/XMLViewerPanel.svelte';
 	import JSONViewer from '$lib/Tei/Panels/JSONViewer.svelte';
 	import Config from '$lib/Tei/Panels/Config.svelte';
-	//import Preview from '$lib/MDCUI/Preview.svelte';
+	import PreviewPanel from '$lib/Tei/Panels/PreviewPanel.svelte';
 
 	// UI
 	import Modal from '$lib/UI/Modal.svelte';
@@ -111,10 +111,10 @@
 		else return true;
 	}
 
-	// Handle page navigation from Previews internal components. Adds
-	// the url in the browsers history without causing a page reload.
-	function changePage(newPage) {
-		page = newPage;
+	// Handle page navigation from Preview internal components.
+	function changePage(event) {
+		page = event.detail.page;
+		console.log(page);
 	}
 </script>
 
@@ -213,24 +213,18 @@
 		<Icon data={faArrowDown} style="color: #666666" scale="1.2" />
 	</div>
 
-	<!-- Preview panel showing an example of the final viewer output -->
-	<!-- <PreviewPanel
-	title="title"
-	markdownHelp={previewPanelDoc}
-	viewModel={ViewModelOutput}
-	tei={ViewModelOutput}
-	on:updatepage={(e) => changePage(e.detail)}
-	{page}
-/> -->
-	<!-- <Preview
-	tei={$TeiStore}
-	{page}
-	on:updatepage={(e) => changePage(e.detail)}
-	itemid={'Filename goes here'}
-/> -->
+	<!-- Preview panel showing an example of the final viewer output, contains an embedded
+		 Preview component. TODO: specify 'Preview' here to swap between a pure data view 
+		 and a styled view for a particular organisation.  -->
+	<PreviewPanel
+		title="Preview"
+		markdownHelp={previewPanelDoc}
+		message="Preview generation requires a ViewModel to be set"
+		viewModel={ViewModelOutput}
+		{page}
+		on:updatepage={changePage}
+	/>
 
-	<!-- Print tool output -->
-	<!-- Page process XMLT -->
 	<!-- Transcriptions/translations XSLT -->
 </div>
 
