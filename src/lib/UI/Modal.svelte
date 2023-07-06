@@ -11,12 +11,14 @@
 
 <div>
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
+	<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 	<dialog
 		class="max-w-full w-full sm:w-3/4 lg:w-[1024px] p-0 md:rounded-md"
 		bind:this={dialog}
 		on:close={() => (showModal = false)}
 		on:click|self={() => dialog.close()}
 	>
+		<!-- svelte-ignore a11y-no-static-element-interactions -->
 		<div on:click|stopPropagation>
 			<div class="flex justify-between">
 				<h2 class="p-2 px-4 text-base lg:text-lg">{title}</h2>
