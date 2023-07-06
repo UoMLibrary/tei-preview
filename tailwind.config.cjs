@@ -5,7 +5,11 @@ const config = {
 	content: ['./src/**/*.{html,js,svelte,ts}'],
 
 	theme: {
-		extend: {}
+		extend: {
+			colors: {
+				'uom-purple': '#632390'
+			}
+		}
 	},
 
 	plugins: [typography]

@@ -33,9 +33,9 @@
 		</div>
 	</div>
 	<!-- Panel Body -->
-	<div class="m-4">
+	<div>
 		{#if !viewModel}
-			<div class="h-4">{message}</div>
+			<div class="h-4 m-4">{message}</div>
 		{:else}
 			<!-- Pass the update page through to the parent component -->
 			<Preview {viewModel} {page} on:updatepage />
