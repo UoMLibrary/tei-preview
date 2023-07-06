@@ -11,12 +11,10 @@
 </script>
 
 <Header />
-
 <TitleBar title="My Item" {page} />
-
 <div class="flex flex-col md:flex-row min-vh-60">
 	<div class="flex-1 bg-black">Image</div>
-	<div class="flex-1">Detail</div>
+	<div class="flex-1">&nbsp;</div>
 </div>
 
 <!-- <button

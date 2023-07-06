@@ -4,7 +4,7 @@
 	import OpenJsonFileButton from '$lib/UI/FileButtons/OpenJsonFileButton.svelte';
 	import SaveJsonFileButton from '$lib/UI/FileButtons/SaveJsonFileButton.svelte';
 
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 	let showModal = false;
 
 	export let title = '';

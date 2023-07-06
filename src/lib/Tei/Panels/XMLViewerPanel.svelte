@@ -4,7 +4,7 @@
 
 	import SaveXMLFileButton from '$lib/UI/FileButtons/SaveXMLFileButton.svelte';
 	import OpenXmlInBrowser from '$lib/UI/FileButtons/OpenXMLInBrowser.svelte';
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 	let showModal = false;
 
 	export let markdownHelp;

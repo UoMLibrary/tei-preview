@@ -3,7 +3,7 @@
 	import OpenXsltFileButton from '$lib/UI/FileButtons/OpenXSLTFileButton.svelte';
 	import { Moon } from 'svelte-loading-spinners';
 
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 	let showModal = false;
 
 	export let markdownHelp;

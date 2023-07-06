@@ -1,5 +1,5 @@
 <script>
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 	import { Moon } from 'svelte-loading-spinners';
 
 	import TeiStore from '$lib/stores/tei-store.js';

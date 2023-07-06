@@ -31,7 +31,7 @@
 	import PreviewPanel from '$lib/Tei/Panels/PreviewPanel.svelte';
 
 	// UI
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 	import Icon from 'svelte-awesome';
 	import { faPlus, faChevronDown, faArrowDown } from '@fortawesome/free-solid-svg-icons';
 	import PrintPanel from '$lib/Tei/Panels/PrintPanel.svelte';

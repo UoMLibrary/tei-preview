@@ -3,7 +3,7 @@
 	// Possibly via a <slot/>
 	// import Preview from '$lib/MDCUI/Preview.svelte';
 	import Preview from '$lib/Tei/MDCPreview/Preview.svelte';
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 
 	// Panel data
 	let showModal = false;

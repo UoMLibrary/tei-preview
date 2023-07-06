@@ -1,5 +1,5 @@
 <script>
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 	import { printpage } from '$lib/Utils/printpage.js';
 	import { Moon } from 'svelte-loading-spinners';
 	// Panel vars

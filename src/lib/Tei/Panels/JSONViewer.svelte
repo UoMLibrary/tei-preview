@@ -1,5 +1,5 @@
 <script>
-	import Modal from '$lib/UI/Modal.svelte';
+	import Modal from '$lib/UI/MarkdownModal.svelte';
 	let showModal = false;
 
 	import { JsonView } from '@zerodevx/svelte-json-view';
