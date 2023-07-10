@@ -9,6 +9,8 @@
 
 	export let viewModel;
 	export let page;
+
+	$: viewModel, (page = 1); // If the viewModel changes, reset the page to 1
 </script>
 
 <Header />
