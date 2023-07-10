@@ -19,7 +19,7 @@
 	<ItemPanelTabs {activeItem} {tabItems} on:tabChange={(e) => (activeItem = e.detail)} />
 	<div class="flex-1 bg-white overflow-y-auto">
 		{#if activeItem == 'About'}
-			<About metadata={viewModel.about} />
+			<About {viewModel} />
 		{:else if activeItem == 'Contents'}
 			<Content contents={viewModel.contents} on:updatepage />
 		{:else if activeItem == 'Thumbnails'}
