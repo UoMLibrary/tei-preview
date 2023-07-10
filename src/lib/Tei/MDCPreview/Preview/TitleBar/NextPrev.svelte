@@ -62,25 +62,25 @@
 	$: dispatch('update', current);
 </script>
 
-<div class="flex justify-center">
+<div class="flex justify-center py-1">
 	<button
-		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold rounded-l-md text-xs py-2"
+		class="w-8 disabled:opacity-50 text-white font-bold rounded-l-md text-xs"
 		disabled={current == min}
 		on:click={(e) => decreaseCounter(1)}
 		><Icon data={faAngleLeft} style="color: white" scale="1.0" /></button
 	>
 	<button
-		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold text-xs py-2"
+		class="w-6 disabled:opacity-50 text-white font-bold text-xs"
 		disabled={current == min}
 		on:click={(e) => decreaseCounter(10)}
 		><Icon data={faAnglesLeft} style="color: white" scale="1.0" /></button
 	>
-	<div class="flex items-center bg-zinc-100 border-y">
+	<div class="flex items-center">
 		<!-- The following hides the up and down arrows which are duplicated here
             by the custom controls
             [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none -->
 		<input
-			class="bg-zinc-100 w-10 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+			class="bg-transparent w-10 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
 			type="number"
 			on:change={(e) => changeInput(e)}
 			on:blur={(e) => blur(e)}
@@ -92,14 +92,14 @@
 	</div>
 
 	<button
-		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold text-xs py-2"
+		class="w-6 disabled:opacity-50 text-white font-bold text-xs"
 		disabled={current == max}
 		on:click={(e) => increaseCounter(10)}
 		><Icon data={faAnglesRight} style="color: white" scale="1.0" /></button
 	>
 
 	<button
-		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold rounded-r-md text-xs py-2"
+		class="w-8 disabled:opacity-50 text-white font-bold rounded-r-md text-xs"
 		disabled={current == max}
 		on:click={(e) => increaseCounter(1)}
 		><Icon data={faAngleRight} style="color: white" scale="1.0" /></button

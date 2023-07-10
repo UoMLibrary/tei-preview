@@ -82,31 +82,31 @@
 	<div id="seadragon-viewer" class="flex-1" />
 
 	<div class="absolute top-0 right-0 m-2">
-		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="fullscreen"
+		<button class="text-white bg-slate-800 px-3 py-1 rounded" id="fullscreen"
 			><Icon data={faUpRightAndDownLeftFromCenter} style="color: white" scale="1.0" /></button
 		>
 	</div>
 
 	<div class="flex gap-x-2 absolute bottom-0 left-0 m-2">
-		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomHome"
+		<button class="text-white bg-slate-800 px-3 py-1 rounded" id="zoomHome"
 			><Icon data={faHouse} style="color: white" scale="1.0" /></button
 		>
-		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomIn"
+		<button class="text-white bg-slate-800 px-3 py-1 rounded" id="zoomIn"
 			><Icon data={faMagnifyingGlassPlus} style="color: white" scale="1.0" /></button
 		>
-		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomOut"
+		<button class="text-white bg-slate-800 px-3 py-1 rounded" id="zoomOut"
 			><Icon data={faMagnifyingGlassMinus} style="color: white" scale="1.0" /></button
 		>
-		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="rotateLeft"
+		<button class="text-white bg-slate-800 px-3 py-1 rounded" id="rotateLeft"
 			><Icon data={faRotateLeft} style="color: white" scale="1.0" /></button
 		>
-		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="rotateRight"
+		<button class="text-white bg-slate-800 px-3 py-1 rounded" id="rotateRight"
 			><Icon data={faRotateRight} style="color: white" scale="1.0" /></button
 		>
 
-		<div class="flex items-center mb-4">
+		<div class="flex py-1">
 			<input
-				class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+				class="ml-2 w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
 				type="checkbox"
 				id="preserve-viewport"
 				bind:checked={preserveSettings}
