@@ -1,6 +1,4 @@
 <script>
-	import { createEventDispatcher } from 'svelte';
-	const dispatch = createEventDispatcher();
 	import Icon from 'svelte-awesome';
 	import {
 		faHouse,
@@ -10,7 +8,6 @@
 		faRotateRight,
 		faUpRightAndDownLeftFromCenter
 	} from '@fortawesome/free-solid-svg-icons';
-	import NextPrev from './ImageViewer/NextPrev.svelte';
 	import { onMount } from 'svelte';
 
 	// The OpenSeadragon import and viewer instance https://openseadragon.github.io/
@@ -81,49 +78,43 @@
 	}
 </script>
 
-<div class="bg-black">
-	<div id="seadragon-viewer" style="width:400px; height:320px;" />
-</div>
+<div class="bg-black flex relative min-h-[400px]">
+	<div id="seadragon-viewer" class="flex-1" />
 
-<div class="flex gap-x-2">
-	<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomHome"
-		><Icon data={faHouse} style="color: white" scale="1.0" /></button
-	>
-	<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomIn"
-		><Icon data={faMagnifyingGlassPlus} style="color: white" scale="1.0" /></button
-	>
-	<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomOut"
-		><Icon data={faMagnifyingGlassMinus} style="color: white" scale="1.0" /></button
-	>
-	<button class="text-white bg-blue-500 px-3 py-1 rounded" id="rotateLeft"
-		><Icon data={faRotateLeft} style="color: white" scale="1.0" /></button
-	>
-	<button class="text-white bg-blue-500 px-3 py-1 rounded" id="rotateRight"
-		><Icon data={faRotateRight} style="color: white" scale="1.0" /></button
-	>
-	<button class="text-white bg-blue-500 px-3 py-1 rounded" id="fullscreen"
-		><Icon data={faUpRightAndDownLeftFromCenter} style="color: white" scale="1.0" /></button
-	>
-
-	<div class="flex items-center mb-4">
-		<input
-			class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
-			type="checkbox"
-			id="preserve-viewport"
-			bind:checked={preserveSettings}
-			on:change={(e) => updatePreserveViewport()}
-		/>
-		<label for="preserve-viewport" class="ml-2 text-xs font-medium text-gray-900 dark:text-gray-400"
-			>Preserve state</label
+	<div class="absolute top-0 right-0 m-2">
+		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="fullscreen"
+			><Icon data={faUpRightAndDownLeftFromCenter} style="color: white" scale="1.0" /></button
 		>
 	</div>
-</div>
 
-<div class="my-4">
-	<NextPrev
-		min={1}
-		max={pages.length}
-		current={page}
-		on:update={(e) => dispatch('updatepage', { page: e.detail })}
-	/>
+	<div class="flex gap-x-2 absolute bottom-0 left-0 m-2">
+		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomHome"
+			><Icon data={faHouse} style="color: white" scale="1.0" /></button
+		>
+		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomIn"
+			><Icon data={faMagnifyingGlassPlus} style="color: white" scale="1.0" /></button
+		>
+		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="zoomOut"
+			><Icon data={faMagnifyingGlassMinus} style="color: white" scale="1.0" /></button
+		>
+		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="rotateLeft"
+			><Icon data={faRotateLeft} style="color: white" scale="1.0" /></button
+		>
+		<button class="text-white bg-blue-500 px-3 py-1 rounded" id="rotateRight"
+			><Icon data={faRotateRight} style="color: white" scale="1.0" /></button
+		>
+
+		<div class="flex items-center mb-4">
+			<input
+				class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 rounded focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"
+				type="checkbox"
+				id="preserve-viewport"
+				bind:checked={preserveSettings}
+				on:change={(e) => updatePreserveViewport()}
+			/>
+			<label for="preserve-viewport" class="ml-2 text-xs text-shadow-xs font-medium text-white"
+				>Preserve state</label
+			>
+		</div>
+	</div>
 </div>

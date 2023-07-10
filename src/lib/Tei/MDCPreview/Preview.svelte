@@ -12,22 +12,11 @@
 </script>
 
 <Header />
-<TitleBar title="My Item" {page} />
-<div class="flex flex-col md:flex-row min-vh-60">
+<TitleBar title="My Item" {page} pageTotal={viewModel.pages.length} on:updatepage />
+<div class="flex flex-col md:flex-row">
 	<div class="flex-1 bg-red-200">
-		<ImageViewer pages={viewModel.pagesObj} {page} showNavigator={true} on:updatepage />
+		<ImageViewer pages={viewModel.pagesObj} {page} showNavigator={true} />
 	</div>
 	<div class="flex-1">&nbsp;</div>
 </div>
-
-<!-- <button
-	class="p-2 bg-slate-300 rounded text-gray-700 m-1"
-	on:click={(e) => dispatch('updatepage', { page: 2 })}>Goto page 2</button
->  -->
-
-<style>
-	/* Setting a custom height for the Preview component of 60% of the screen height */
-	.min-vh-60 {
-		min-height: 60vh;
-	}
-</style>
+<!-- style="min-height: 60vh;" -->
