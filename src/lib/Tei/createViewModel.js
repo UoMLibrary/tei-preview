@@ -1,17 +1,30 @@
 // Convert a Cudl JSON object with a configuration object to a ViewModel
 export function createViewModel(cudlObj, configObj) {
-	let pdfObj = createPdfObject(cudlObj.pages, configObj);
+	let pdfObj = createPdfObject(cudlObj, configObj);
 	let pages = createPagesArray(cudlObj.pages, configObj);
 	let thumbnails = createThumbnailsArray(cudlObj.pages, configObj);
 	let metadata = createMetadataArray(cudlObj);
+	let contentsObj = createContentsObj(cudlObj);
+	let aboutObj = createAboutObj(cudlObj);
 	let viewModel = {
+		aboutObj,
 		metadata,
 		pdfObj,
 		pages,
 		thumbnails,
-		content: ''
+		contentsObj
 	};
 	return viewModel;
+}
+
+function createAboutObj(cudlObj) {
+	let aboutObj = {};
+	aboutObj.title = cudlObj?.descriptiveMetadata?.[0]?.title?.displayForm ?? '';
+	aboutObj.abstractHTML = cudlObj?.descriptiveMetadata?.[0]?.abstract?.displayForm ?? '';
+	aboutObj.shelfLocator = cudlObj?.descriptiveMetadata?.[0]?.shelfLocator?.displayForm ?? '';
+	aboutObj.displayImageRights = cudlObj?.descriptiveMetadata?.[0]?.displayImageRights ?? '';
+
+	return aboutObj;
 }
 
 function createPagesArray(pagesArray, configObj) {
@@ -35,13 +48,15 @@ function createThumbnailsArray(pagesArray, configObj) {
 	return items;
 }
 
-function createPdfObject(pagesArray, configObj) {
+function createPdfObject(cudlObj, configObj) {
+	let pagesArray = cudlObj.pages;
 	// TODO: PASS IN ITEM REFERENCE FROM CONFIG OR CUDL JSON?
 	let pdfObj = {};
 	// TODO: PASS IN ITEM REF FROM CUDL BUT OFFER OVERRIDE ON CONFIG OBJECT
 	//let downloadImageRights = tei?.raw?.descriptiveMetadata?.[0]?.downloadImageRights;
 	let itemid = 'TESTID';
-	let downloadImageRights = 'Missing copyright message';
+	let downloadImageRights =
+		cudlObj?.descriptiveMetadata?.[0]?.displayImageRights ?? 'Missing copyright message';
 
 	// TODO: This should live elsewhere or in the tei JSON data structure
 	// update print data structure
@@ -115,4 +130,37 @@ function createMetadataArray(cudlObj) {
 	// console.log(JSON.stringify(data, null, 2));
 
 	return data;
+}
+
+// Takes the cudl structure and returns cleaned up contents panel data
+function createContentsObj(cudlObj) {
+	// Shelf locator is used in content section titles
+	let shelfLocator = cudlObj.descriptiveMetadata?.[0]?.shelfLocator?.displayForm ?? '';
+
+	let rawStructure = cudlObj.logicalStructures?.[0] ?? {};
+	let structure = tidyUpContentsStructure(rawStructure, shelfLocator);
+
+	return { structure };
+}
+
+// Cleans up the contents panel data structure and passes the shelflocator down the
+// nested children structure to fill in any empty labels (recursive)
+function tidyUpContentsStructure(rawStructure, shelfLocator) {
+	let structure = {};
+
+	// destructure the loose fields that are not 'children' into a single field 'data'
+	let { children, ...data } = rawStructure;
+	structure.data = data;
+	if (!data.label) data.label = shelfLocator;
+
+	if (children?.length > 0) {
+		let tempChildren = [];
+		children.forEach((item) => {
+			// recursion
+			let childStruct = tidyUpContentsStructure(item, shelfLocator);
+			tempChildren.push(childStruct);
+		});
+		structure.children = tempChildren;
+	}
+	return structure;
 }

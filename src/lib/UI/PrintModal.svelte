@@ -45,7 +45,7 @@
 	<!-- svelte-ignore a11y-click-events-have-key-events -->
 	<!-- svelte-ignore a11y-no-noninteractive-element-interactions -->
 	<dialog
-		class="max-w-full w-full sm:w-3/4 lg:w-[1024px] p-0 md:rounded-md"
+		class="max-w-full w-full sm:w-3/4 lg:w-[800px] p-0 md:rounded-md"
 		bind:this={dialog}
 		on:close={() => (showModal = false)}
 		on:click|self={() => dialog.close()}
@@ -68,7 +68,7 @@
 						</div>
 					</div>
 				{:else}
-					<div class="flex justify-between space-x-1">
+					<div class="flex justify-around space-x-1">
 						<button class="p-4 sm:p-8 bg-slate-300 rounded" on:click={(e) => printItem(1)}
 							><div>1 Column</div></button
 						>

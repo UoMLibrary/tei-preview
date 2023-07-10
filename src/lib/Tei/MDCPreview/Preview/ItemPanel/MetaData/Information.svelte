@@ -4,12 +4,12 @@
 </script>
 
 {#if metadata?.length > 0}
-	<div class="m-4 border border-purple-400 rounded-md overflow-hidden text-sm">
+	<div class="border border-purple-400 rounded-md overflow-hidden text-sm">
 		<div class="flex justify-between bg-zinc-300 p-3">
 			<h4 class="m-0 text-uom-purple">Information about this document</h4>
 		</div>
 
-		<div class="p-3">
+		<div class="pt-2 prose-sm">
 			<ul>
 				{#each metadata as data}
 					<li>

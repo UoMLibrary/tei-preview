@@ -4,4 +4,6 @@
 	export let metadata;
 </script>
 
-<Information {metadata} />
+<div class="m-4">
+	<Information {metadata} />
+</div>
