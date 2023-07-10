@@ -1,0 +1,107 @@
+<script>
+	import { createEventDispatcher } from 'svelte';
+	const dispatch = createEventDispatcher();
+	import Icon from 'svelte-awesome';
+	import {
+		faAngleRight,
+		faAnglesRight,
+		faAngleLeft,
+		faAnglesLeft
+	} from '@fortawesome/free-solid-svg-icons';
+
+	export let current = 0;
+	export let min = 0;
+	export let max = 0;
+
+	// Workaround value not updating in event handling
+	// https://svelte.dev/repl/85e2b7097e8f4255b0fc5757988ebdb9?version=3.16.4
+	let field;
+
+	//$: console.log(current, min, max);
+
+	let previousN = current;
+
+	function decreaseCounter(amount) {
+		let newPos = Number(current) - amount;
+		if (newPos > min) {
+			current = newPos;
+		} else current = min;
+	}
+
+	function increaseCounter(amount) {
+		let newPos = Number(current) + amount;
+		if (newPos < max) {
+			current = newPos;
+		} else current = max;
+	}
+
+	function blur(e) {
+		let val = parseInt(e.target.value);
+		if (isNaN(val)) {
+			current = field.value = Number(previousN);
+			current = field.value;
+		}
+	}
+
+	function changeInput(e) {
+		let newValue = parseInt(e.target.value);
+		if (isNaN(newValue)) {
+			current = Number(previousN);
+		} else if (newValue > max) {
+			current = max;
+			previousN = current;
+		} else if (newValue < min) {
+			current = min;
+			previousN = current;
+		} else {
+			current = newValue;
+			previousN = current;
+		}
+	}
+
+	$: dispatch('update', current);
+</script>
+
+<div class="flex justify-center">
+	<button
+		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold rounded-l-md text-xs py-2"
+		disabled={current == min}
+		on:click={(e) => decreaseCounter(1)}
+		><Icon data={faAngleLeft} style="color: white" scale="1.0" /></button
+	>
+	<button
+		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold text-xs py-2"
+		disabled={current == min}
+		on:click={(e) => decreaseCounter(10)}
+		><Icon data={faAnglesLeft} style="color: white" scale="1.0" /></button
+	>
+	<div class="flex items-center bg-zinc-100 border-y">
+		<!-- The following hides the up and down arrows which are duplicated here
+            by the custom controls
+            [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none -->
+		<input
+			class="bg-zinc-100 w-10 text-center [appearance:textfield] [&::-webkit-outer-spin-button]:appearance-none [&::-webkit-inner-spin-button]:appearance-none"
+			type="number"
+			on:change={(e) => changeInput(e)}
+			on:blur={(e) => blur(e)}
+			value={current}
+			bind:this={field}
+		/>
+		<div class="w-4">of</div>
+		<div class="w-10 text-center">{max}</div>
+	</div>
+
+	<button
+		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold text-xs py-2"
+		disabled={current == max}
+		on:click={(e) => increaseCounter(10)}
+		><Icon data={faAnglesRight} style="color: white" scale="1.0" /></button
+	>
+
+	<button
+		class="w-8 disabled:opacity-50 bg-blue-500 text-white font-bold rounded-r-md text-xs py-2"
+		disabled={current == max}
+		on:click={(e) => increaseCounter(1)}
+		><Icon data={faAngleRight} style="color: white" scale="1.0" /></button
+	>
+</div>

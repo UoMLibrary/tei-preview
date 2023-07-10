@@ -1,8 +1,26 @@
 // Convert a Cudl JSON object with a configuration object to a ViewModel
 export function createViewModel(cudlJson, configObj) {
 	let pdfObj = createPdfObject(cudlJson.pages, configObj);
-	let viewModel = { raw: cudlJson, pages: cudlJson.pages, content: '', metadata: '', pdfObj };
+	let pagesObj = createPagesObject(cudlJson.pages, configObj);
+	let viewModel = {
+		raw: cudlJson,
+		pages: cudlJson.pages,
+		content: '',
+		metadata: '',
+		pdfObj,
+		pagesObj
+	};
 	return viewModel;
+}
+
+function createPagesObject(pagesArray, configObj) {
+	let items = [];
+	pagesArray.forEach((page, index) => {
+		// console.log(page);
+		let item = configObj.viewerTemplate.replace('{imagerefwithpage}', page.IIIFImageURL);
+		items.push(item);
+	});
+	return items;
 }
 
 function createPdfObject(pagesArray, configObj) {
