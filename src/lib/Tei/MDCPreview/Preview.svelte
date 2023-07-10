@@ -23,8 +23,8 @@
 	on:updatepage
 />
 <div class="flex flex-col md:flex-row">
-	<div class="flex-1 bg-red-200">
-		<ImageViewer pages={viewModel.pagesObj} {page} showNavigator={true} />
+	<div class="flex-1 bg-black">
+		<ImageViewer pages={viewModel.pages} {page} showNavigator={true} />
 	</div>
-	<div class="flex-1"><ItemPanel {viewModel} {page} /></div>
+	<div class="flex-1"><ItemPanel {viewModel} {page} on:updatepage /></div>
 </div>

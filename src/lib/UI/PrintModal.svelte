@@ -37,6 +37,7 @@
 		// console.log('pdf build complete');
 		if (missing_images.length > 0) console.log(missing_images);
 		// TODO: REPORT THESE BACK FOR TOOL
+		dialog.close();
 	}
 </script>
 

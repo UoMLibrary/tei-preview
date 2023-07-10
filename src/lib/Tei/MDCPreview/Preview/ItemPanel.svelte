@@ -9,19 +9,21 @@
 	export let viewModel;
 	export let page;
 
+	$: console.log(viewModel);
+
 	let tabItems = ['About', 'Contents', 'Thumbnails', 'Metadata', 'More...'];
 	let activeItem = 'About';
 </script>
 
-<aside class="flex flex-col h-full">
+<aside class="flex flex-col min-h-[500px] h-[500px]">
 	<ItemPanelTabs {activeItem} {tabItems} on:tabChange={(e) => (activeItem = e.detail)} />
-	<div class="flex-1 bg-white">
+	<div class="flex-1 bg-white overflow-y-auto">
 		{#if activeItem == 'About'}
 			<About metadata={viewModel.about} />
 		{:else if activeItem == 'Contents'}
-			<Content contents={viewModel.contents} on:updatePage />
+			<Content contents={viewModel.contents} on:updatepage />
 		{:else if activeItem == 'Thumbnails'}
-			<Thumbnails pages={viewModel.thumbnails} on:updatePage />
+			<Thumbnails thumbnails={viewModel.thumbnails} on:updatepage />
 		{:else if activeItem == 'Metadata'}
 			<Metadata metadata={viewModel.metadata} />
 		{:else}

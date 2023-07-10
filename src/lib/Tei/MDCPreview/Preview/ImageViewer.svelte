@@ -78,7 +78,7 @@
 	}
 </script>
 
-<div class="bg-black flex relative min-h-[400px]">
+<div class="bg-black flex relative min-h-[500px]">
 	<div id="seadragon-viewer" class="flex-1" />
 
 	<div class="absolute top-0 right-0 m-2">

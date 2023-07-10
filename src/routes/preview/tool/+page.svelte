@@ -114,7 +114,6 @@
 	// Handle page navigation from Preview internal components.
 	function changePage(event) {
 		page = event.detail.page;
-		// console.log(page);
 	}
 </script>
 
