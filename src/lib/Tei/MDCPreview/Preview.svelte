@@ -3,6 +3,7 @@
 	import Header from './Preview/Header.svelte';
 	import TitleBar from './Preview/TitleBar.svelte';
 	import ImageViewer from './Preview/ImageViewer.svelte';
+	import ItemPanel from './Preview/ItemPanel.svelte';
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -25,6 +26,5 @@
 	<div class="flex-1 bg-red-200">
 		<ImageViewer pages={viewModel.pagesObj} {page} showNavigator={true} />
 	</div>
-	<div class="flex-1">&nbsp;</div>
+	<div class="flex-1"><ItemPanel {viewModel} {page} /></div>
 </div>
-<!-- style="min-height: 60vh;" -->
