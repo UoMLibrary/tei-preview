@@ -10,7 +10,7 @@
 		faRotateRight,
 		faUpRightAndDownLeftFromCenter
 	} from '@fortawesome/free-solid-svg-icons';
-	import NextPrev from './NextPrev.svelte';
+	import NextPrev from './ImageViewer/NextPrev.svelte';
 	import { onMount } from 'svelte';
 
 	// The OpenSeadragon import and viewer instance https://openseadragon.github.io/

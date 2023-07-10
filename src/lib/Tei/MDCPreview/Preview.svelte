@@ -1,8 +1,8 @@
 <script>
 	// Preview UI Components
-	import Header from './Components/Header.svelte';
-	import TitleBar from './Components/TitleBar.svelte';
-	import ImageViewer from './Components/ImageViewer.svelte';
+	import Header from './Preview/Header.svelte';
+	import TitleBar from './Preview/TitleBar.svelte';
+	import ImageViewer from './Preview/ImageViewer.svelte';
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -14,7 +14,7 @@
 <Header />
 <TitleBar title="My Item" {page} />
 <div class="flex flex-col md:flex-row min-vh-60">
-	<div class="flex-1 bg-black">
+	<div class="flex-1 bg-red-200">
 		<ImageViewer pages={viewModel.pagesObj} {page} showNavigator={true} on:updatepage />
 	</div>
 	<div class="flex-1">&nbsp;</div>
