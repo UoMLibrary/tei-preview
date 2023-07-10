@@ -12,7 +12,13 @@
 </script>
 
 <Header />
-<TitleBar title="My Item" {page} pageTotal={viewModel.pages.length} on:updatepage />
+<TitleBar
+	title="My Item"
+	{page}
+	pageTotal={viewModel.pages.length}
+	pdfData={viewModel.pdfObj}
+	on:updatepage
+/>
 <div class="flex flex-col md:flex-row">
 	<div class="flex-1 bg-red-200">
 		<ImageViewer pages={viewModel.pagesObj} {page} showNavigator={true} />
