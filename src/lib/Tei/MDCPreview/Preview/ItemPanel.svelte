@@ -19,7 +19,7 @@
 		{#if activeItem == 'About'}
 			<About {viewModel} />
 		{:else if activeItem == 'Contents'}
-			<Content contents={viewModel.contentsObj} on:updatepage />
+			<Content contents={viewModel.contentsObj} {page} on:updatepage />
 		{:else if activeItem == 'Thumbnails'}
 			<Thumbnails thumbnails={viewModel.thumbnails} on:updatepage />
 		{:else if activeItem == 'Metadata'}

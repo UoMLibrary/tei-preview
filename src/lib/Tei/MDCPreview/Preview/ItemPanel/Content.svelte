@@ -7,17 +7,18 @@
 	// can be nested - see https://stage.digitalcollections.manchester.ac.uk/view/VS-VPH-00023/1
 	// recursion in Svelte - https://svelte.dev/tutorial/svelte-self
 	export let contents;
+	export let page;
 </script>
 
 <div class="">
 	{#if contents?.structure?.data}
 		<div class="m-3 border border-gray-300 rounded-md overflow-hidden text-sm">
-			<Child data={contents.structure.data} on:updatepage clickable="true" />
+			<Child data={contents.structure.data} on:updatepage clickable="true" {page} />
 		</div>
 	{/if}
 
 	{#if contents?.structure?.children?.length > 0}
-		<Children children={contents.structure.children} on:updatepage />
+		<Children children={contents.structure.children} on:updatepage {page} />
 	{/if}
 </div>
 <!-- DEBUGGING -->
