@@ -34,3 +34,5 @@ The latest version of the tei preview app can be run from dockerhub
 ```bash
 docker run --rm -p 3000:3000 --name preview -d abitofcode/tei-preview:4
 ```
+
+The extras folder contains some example Manchester TEI content and configuration files for Manchester, Lancaster and Cambridge.
