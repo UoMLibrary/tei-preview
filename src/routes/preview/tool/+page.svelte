@@ -1,5 +1,4 @@
 <script>
-	//import PreviewPanel from '$lib/Tei/Tools/PreviewPanel.svelte';
 	import { browser } from '$app/environment';
 
 	// Markdown popover help

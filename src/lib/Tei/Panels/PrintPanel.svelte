@@ -109,7 +109,7 @@ let pdf_data = {
 					<p class="p-2 text-xs">{progressText}</p>
 				</div>
 			</div>
-		{:else}
+		{:else if data}
 			<div class="flex justify-between space-x-1">
 				<button class="p-4 sm:p-8 bg-slate-300 rounded" on:click={(e) => printItem(1)}
 					><div>1 Column</div></button
@@ -124,6 +124,8 @@ let pdf_data = {
 					><div>4 Columns</div></button
 				>
 			</div>
+		{:else}
+			<div class="h-4">Print pdf requires a ViewModel</div>
 		{/if}
 	</div>
 </div>
