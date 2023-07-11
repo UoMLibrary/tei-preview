@@ -4,6 +4,7 @@
 	// Tool Panels and Preview
 	import SourceTEI from '$lib/Tei/Panels/SourceTEI.svelte';
 	import PreviewPanel from '$lib/Tei/Panels/PreviewPanel.svelte';
+	import JSONViewer from '$lib/Tei/Panels/JSONViewer.svelte';
 
 	// Stores
 	import TeiStore from '$lib/stores/tei-store.js';
@@ -103,7 +104,7 @@
 	}
 </script>
 
-<div class="p-4 bg-slate-300 pb-32 h-screen">
+<div class="p-4 bg-slate-300 pb-32 min-h-screen">
 	<!-- UI to load TEI XML file -->
 	<SourceTEI title="Source TEI Document" markdownHelp="" />
 
@@ -117,5 +118,14 @@
 		viewModel={ViewModelOutput}
 		{page}
 		on:updatepage={changePage}
+	/>
+
+	<!-- JSON Viewer that contains ViewModel output (not part of existing process) -->
+	<JSONViewer
+		jsonData={ViewModelOutput}
+		title="View Model"
+		savefile="viewmodel.json"
+		markdownHelp=""
+		message="View Model generation requires Cudl Output and Configuration be configured"
 	/>
 </div>
