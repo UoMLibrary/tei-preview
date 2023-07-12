@@ -4,6 +4,8 @@
 	import { Moon } from 'svelte-loading-spinners';
 
 	import Modal from '$lib/UI/MarkdownModal.svelte';
+	import SaveJsonFileButton from '$lib/UI/FileButtons/SaveJsonFileButton.svelte';
+	import OpenJsonFileButton from '$lib/UI/FileButtons/OpenJsonFileButton.svelte';
 	let showModal = false;
 
 	export let markdownHelp;
@@ -50,8 +52,23 @@
 					SefStore.setKeyValue(sefId, e.detail);
 					isLoading = false;
 				}}
-				><button class="p-1 mr-2">Load</button>
+				><button class="p-1 mr-2">Load XSLT</button>
 			</OpenXsltFileButton>
+
+			<OpenJsonFileButton
+				on:started={(e) => (isLoading = true)}
+				on:loaded={(e) => {
+					SefStore.setKeyValue(sefId, e.detail.json);
+					console.log(e.detail.json);
+					isLoading = false;
+				}}><button class="p-1 mr-2">Load SEF</button></OpenJsonFileButton
+			>
+
+			{#if sefData.sef}
+				<SaveJsonFileButton fileName={`${sefId}.sef.json`} jsonData={sefData}>
+					<button class="p-1 mr-2">Save SEF</button>
+				</SaveJsonFileButton>
+			{/if}
 
 			<button class="p-1 mr-2" on:click={(e) => SefStore.clearKeyValue(sefId)}>Clear</button>
 
