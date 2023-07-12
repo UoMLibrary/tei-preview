@@ -9,10 +9,12 @@
 import { writable, get } from 'svelte/store';
 import { browser } from '$app/environment';
 
-let emptyStore = {
-	preTransform: { metadata: null, sef: null, filename: null, errors: null },
-	JSONTransform: { metadata: null, sef: null, filename: null, errors: null }
-};
+let emptyStore = {};
+// Structure. Key is the sefId
+// {
+// 	  preTransform: { metadata: null, sef: null, filename: null, errors: null },
+// 	  JSONTransform: { metadata: null, sef: null, filename: null, errors: null }
+// };
 
 let emptyItem = { metadata: null, sef: null, filename: null, errors: null };
 

@@ -11,6 +11,11 @@
 	import SefStore from '$lib/stores/sef-store.js';
 	import ConfigStore from '$lib/stores/config-store.js';
 
+	// We load the sef when the page is loaded, this preview page doen't need to react to
+	// live updates in the sef files
+	import { sef as preTransformSef } from './preTransform.sef.json';
+	import { sef as jsonTransformSef } from './JSONTransform.sef.json';
+
 	// ViewModel processing
 	import { createViewModel } from '$lib/Tei/createViewModel.js';
 
@@ -31,17 +36,16 @@
 
 	// Reactive statements. Any change to a var/store in the line starting with $:
 	// causes the whole statement to execute
-	$: runPreTransform($TeiStore.xmlDoc, $SefStore?.preTransform);
-	$: runJSONTransform(preTransformXmlDocOutput, $SefStore?.jsonTransform);
+	$: runPreTransform($TeiStore.xmlDoc);
+	$: runJSONTransform(preTransformXmlDocOutput);
 	$: runViewModelTransform(JSONTransformObjOutput, $ConfigStore);
 
 	async function runPreTransform(xmlDoc, sefObj) {
 		// browser check to prevent new XMLSerializer being called during a SSR attempt
-		if (!browser || !xmlDoc || !$SefStore?.preTransform?.sef)
-			return (preTransformXmlDocOutput = null);
+		if (!browser || !xmlDoc || !preTransformSef) return (preTransformXmlDocOutput = null);
 
 		let xmlString = new XMLSerializer().serializeToString(xmlDoc.documentElement);
-		let sefObjCopy = SefStore.getKeyCopy('preTransform'); // get a copy (see sef store for details)
+		let sefObjCopy = preTransformSef; // TODO: Check if we need to reload each time (see sef store for details)
 
 		let transformConfig = {
 			sourceText: xmlString,
@@ -57,11 +61,10 @@
 
 	async function runJSONTransform(xmlDoc, sefObj) {
 		// browser check to prevent new XMLSerializer being called during a SSR attempt
-		if (!browser || !xmlDoc || !$SefStore?.JSONTransform?.sef)
-			return (JSONTransformObjOutput = null);
+		if (!browser || !xmlDoc || !jsonTransformSef) return (JSONTransformObjOutput = null);
 
 		let xmlString = new XMLSerializer().serializeToString(xmlDoc.documentElement);
-		let sefObjCopy = SefStore.getKeyCopy('JSONTransform'); // get a copy (see sef store for details)
+		let sefObjCopy = jsonTransformSef; // TODO: Check if we need to reload each time (see sef store for details)
 
 		let transformConfig = {
 			sourceText: xmlString,
@@ -126,6 +129,6 @@
 		title="View Model"
 		savefile="viewmodel.json"
 		markdownHelp=""
-		message="View Model generation requires Cudl Output and Configuration be configured"
+		message="View Model generation requires a TEI to be loaded"
 	/>
 </div>

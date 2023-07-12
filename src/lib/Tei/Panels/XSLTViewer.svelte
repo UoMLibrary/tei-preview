@@ -18,7 +18,7 @@
 	$: status = getStatus(sefData);
 
 	function getStatus(_sefData) {
-		if (_sefData.sef && _sefData?.errors?.length == 0) {
+		if (_sefData?.sef && _sefData?.errors?.length == 0) {
 			status = 'SUCCESS';
 		} else if (_sefData?.errors?.length > 0) {
 			status = 'ERROR';
@@ -63,7 +63,7 @@
 				}}><button class="p-1 mr-2">Load SEF</button></OpenJsonFileButton
 			>
 
-			{#if sefData.sef}
+			{#if sefData?.sef}
 				<SaveJsonFileButton fileName={`${sefId}.sef.json`} jsonData={sefData}>
 					<button class="p-1 mr-2">Save SEF</button>
 				</SaveJsonFileButton>
@@ -89,15 +89,15 @@
 			{#if noXSLTLoaded}
 				<p class="p-1">No TEI XML loaded</p>
 			{/if}
-			{#if sefData.fileData && Object.keys(sefData.fileData).length > 1}
+			{#if sefData?.fileData && Object.keys(sefData?.fileData).length > 1}
 				<p class="text-sm font-bold p-1">File details</p>
 				<div class="mb-2 px-2">
-					{#each Object.entries(sefData.fileData) as [key, value]}
+					{#each Object.entries(sefData?.fileData) as [key, value]}
 						<p><span class="font-bold">{key}</span>: {value}</p>
 					{/each}
 				</div>
 			{/if}
-			{#if sefData.metaData && Object.keys(sefData.metaData).length > 1}
+			{#if sefData?.metaData && Object.keys(sefData.metaData).length > 1}
 				<p class="text-sm font-bold p-1">Metadata</p>
 				<div class="mb-2 px-2">
 					{#each Object.entries(sefData.metaData) as [key, value]}
@@ -105,7 +105,7 @@
 					{/each}
 				</div>
 			{/if}
-			{#if sefData.errors && sefData.errors.length > 0}
+			{#if sefData?.errors && sefData.errors.length > 0}
 				<p class="text-sm font-bold p-1 text-red-800">Parsing errors</p>
 				<div class="mb-2 px-2 text-red-800 font-mono">
 					{#each sefData.errors as error}
