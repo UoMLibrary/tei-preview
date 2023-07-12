@@ -36,3 +36,10 @@ docker run --rm -p 3000:3000 --name preview -d abitofcode/tei-preview:4
 ```
 
 The extras folder contains some example Manchester TEI content and configuration files for Manchester, Lancaster and Cambridge.
+
+## Routes
+
+There are currently 2 routes in the tool
+
+- preview/tool - Where the pipeline is out in the open and the XSLT can be configured
+- preview - A simpler version with preconfigured XSLT to help with previewing TEIs
