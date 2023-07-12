@@ -59,7 +59,6 @@
 				on:started={(e) => (isLoading = true)}
 				on:loaded={(e) => {
 					SefStore.setKeyValue(sefId, e.detail.json);
-					console.log(e.detail.json);
 					isLoading = false;
 				}}><button class="p-1 mr-2">Load SEF</button></OpenJsonFileButton
 			>
