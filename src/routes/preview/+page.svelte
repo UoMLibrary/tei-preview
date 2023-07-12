@@ -11,6 +11,32 @@
 	import SefStore from '$lib/stores/sef-store.js';
 	import ConfigStore from '$lib/stores/config-store.js';
 
+	const configData = {
+		cambridge: {
+			viewerTemplate: 'https://images.lib.cam.ac.uk/iiif/{imagerefwithpage}.jp2/info.json',
+			thumbnailTemplate:
+				'https://images.lib.cam.ac.uk/content/images/{imagerefwithpage}_files/8/0_0.jpg',
+			printTemplate:
+				'https://images.lib.cam.ac.uk/iiif/{imagerefwithpage}.jp2/full/!400,400/0/default.jpg'
+		},
+		lancaster: {
+			viewerTemplate:
+				'https://iiif.digitalcollections.lancaster.ac.uk/iiif/2/{imagerefwithpage}.jp2/info.json',
+			thumbnailTemplate:
+				'https://iiif.digitalcollections.lancaster.ac.uk/iiif/2/{imagerefwithpage}.jp2/full/,150/0/default.jpg',
+			printTemplate:
+				'https://iiif.digitalcollections.lancaster.ac.uk/iiif/2/{imagerefwithpage}.jp2/full/,600/0/default.jpg'
+		},
+		manchester: {
+			viewerTemplate:
+				'https://image.digitalcollections.manchester.ac.uk/iiif/{imagerefwithpage}/info.json',
+			thumbnailTemplate:
+				'https://image.digitalcollections.manchester.ac.uk/iiif/{imagerefwithpage}/full/,150/0/default.jpg',
+			printTemplate:
+				'https://image.digitalcollections.manchester.ac.uk/iiif/{imagerefwithpage}/full/,600/0/default.jpg'
+		}
+	};
+
 	// We load the sef when the page is loaded, this preview page doen't need to react to
 	// live updates in the sef files
 	import { sef as preTransformSef } from './preTransform.sef.json';
@@ -20,15 +46,8 @@
 	import { createViewModel } from '$lib/Tei/createViewModel.js';
 
 	let page;
-
-	let config = {
-		printTemplate:
-			'https://image.digitalcollections.manchester.ac.uk/iiif/{imagerefwithpage}/info.json',
-		thumbnailTemplate:
-			'https://image.digitalcollections.manchester.ac.uk/iiif/{imagerefwithpage}/full/,150/0/default.jpg',
-		viewerTemplate:
-			'https://image.digitalcollections.manchester.ac.uk/iiif/{imagerefwithpage}/full/,600/0/default.jpg'
-	};
+	let selectedOrg = 'manchester';
+	let selectedConfig = configData[selectedOrg];
 
 	let preTransformXmlDocOutput; // the output of the preTransform (transient)
 	let JSONTransformObjOutput; // the output of the JSON transform (transient)
@@ -38,7 +57,7 @@
 	// causes the whole statement to execute
 	$: runPreTransform($TeiStore.xmlDoc);
 	$: runJSONTransform(preTransformXmlDocOutput);
-	$: runViewModelTransform(JSONTransformObjOutput, $ConfigStore);
+	$: runViewModelTransform(JSONTransformObjOutput, selectedConfig);
 
 	async function runPreTransform(xmlDoc, sefObj) {
 		// browser check to prevent new XMLSerializer being called during a SSR attempt
@@ -77,18 +96,20 @@
 		JSONTransformObjOutput = JSON.parse(transform.principalResult);
 	}
 
-	async function runViewModelTransform(cudlJson, configObj) {
-		if (!cudlJson || !validateConfig(configObj)) {
+	async function runViewModelTransform(cudlJson, config) {
+		if (!cudlJson || !validateConfig(config)) {
 			return (ViewModelOutput = null);
 		}
 		// Quick hack for new Object, transformation will make a copy
 		let cudlJsonCopy = JSON.parse(JSON.stringify(cudlJson));
-		ViewModelOutput = createViewModel(cudlJsonCopy, configObj);
+		ViewModelOutput = createViewModel(cudlJsonCopy, config);
 	}
 
 	function validateConfig(config) {
+		if (!config) return false;
 		// Check the required template strings are there and that the contain
 		// the substitution strings
+		console.log(config);
 		if (
 			config.printTemplate == '' ||
 			config.thumbnailTemplate == '' ||
@@ -101,6 +122,11 @@
 		else return true;
 	}
 
+	function selectConfig(org) {
+		selectedOrg = org;
+		selectedConfig = configData[org];
+	}
+
 	// Handle page navigation from Preview internal components.
 	function changePage(event) {
 		page = event.detail.page;
@@ -110,6 +136,26 @@
 <div class="p-4 bg-slate-300 pb-32 min-h-screen">
 	<!-- UI to load TEI XML file -->
 	<SourceTEI title="Source TEI Document" markdownHelp="" />
+	<div class="flex text-xs">
+		<button
+			class="m-2 mr-2 mb-4 p-2 bg-blue-500 rounded text-white {selectedOrg == 'cambridge'
+				? 'bg-red-500'
+				: ''}"
+			on:click={(e) => selectConfig('cambridge')}>Cambridge</button
+		>
+		<button
+			class="m-2 mr-2 mb-4 p-2 bg-blue-500 rounded text-white {selectedOrg == 'lancaster'
+				? 'bg-red-500'
+				: ''}"
+			on:click={(e) => selectConfig('lancaster')}>Lancaster</button
+		>
+		<button
+			class="m-2 mr-2 mb-4 p-2 bg-blue-500 rounded text-white {selectedOrg == 'manchester'
+				? 'bg-red-500'
+				: ''}"
+			on:click={(e) => selectConfig('manchester')}>Manchester</button
+		>
+	</div>
 
 	<!-- Preview panel showing an example of the final viewer output, contains an embedded
 		 Preview component. TODO: specify 'Preview' here to swap between a pure data view 
