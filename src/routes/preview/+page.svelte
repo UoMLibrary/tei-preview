@@ -109,7 +109,6 @@
 		if (!config) return false;
 		// Check the required template strings are there and that the contain
 		// the substitution strings
-		console.log(config);
 		if (
 			config.printTemplate == '' ||
 			config.thumbnailTemplate == '' ||
