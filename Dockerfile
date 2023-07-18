@@ -62,9 +62,7 @@ RUN npm install
 RUN npm config set fetch-retry-mintimeout 20000 
 HEALTHCHECK --interval=10s --timeout=2s --start-period=15s CMD ["node", "healthcheck.mjs"]
 
-# Pass through the ORIGIN to prevent cross scripting issues in Sverdle
-# When testing in the mdctools_web folder
-# ENV ORIGIN=http://localhost:3000 
+# Pass through the ORIGIN to prevent cross scripting issues 
 # When running from Docker compose
 # ENV ORIGIN=http://localhost:8000 
 ENV ORIGIN=http://localhost:3000

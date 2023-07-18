@@ -22,7 +22,7 @@ docker build --tag tei-preview .
 ## Running the local docker image
 
 ```bash
-# Start a container using the tei-preview image in detached moded and open up port 3000 on the container to the host. By setting a name `preview`
+# Start a container using the tei-preview image in detached mode and open up port 3000 on the container to the host. By setting a name `preview`
 docker run --rm -p 3000:3000 --name preview -d tei-preview
 # We can stop the container using docker stop preview
 ```
