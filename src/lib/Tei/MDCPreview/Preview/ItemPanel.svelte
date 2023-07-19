@@ -23,7 +23,7 @@
 		{:else if activeItem == 'Thumbnails'}
 			<Thumbnails thumbnails={viewModel.thumbnails} on:updatepage />
 		{:else if activeItem == 'Metadata'}
-			<Metadata metadata={viewModel.metadata} />
+			<Metadata metadata={viewModel.displayMetadata} />
 		{:else}
 			<div class="text-xs"><p class="flex-1 p-4">Under construction...</p></div>
 		{/if}

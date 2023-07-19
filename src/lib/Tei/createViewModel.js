@@ -3,12 +3,14 @@ export function createViewModel(cudlObj, configObj) {
 	let pdfObj = createPdfObject(cudlObj, configObj);
 	let pages = createPagesArray(cudlObj.pages, configObj);
 	let thumbnails = createThumbnailsArray(cudlObj.pages, configObj);
-	let metadata = createMetadataArray(cudlObj);
+	let metadata = createMetadataObj(cudlObj);
+	let displayMetadata = createDisplayMetadataArray(cudlObj);
 	let contentsObj = createContentsObj(cudlObj);
 	let aboutObj = createAboutObj(cudlObj);
 	let viewModel = {
 		aboutObj,
 		metadata,
+		displayMetadata,
 		pdfObj,
 		pages,
 		thumbnails,
@@ -82,54 +84,89 @@ function createPdfObject(cudlObj, configObj) {
 	return pdfObj;
 }
 
-// Returns an array of metadata in the form of key pair values. Values are objects that may have
-// extra fields such as type and text.
-// Possibility this is also RECURSIVE. Structure may contain children
-function createMetadataArray(cudlObj) {
+// TODO: thumbnailUrl needs string replacement from ConfigUrl
+function createMetadataObj(cudlObj) {
 	let descriptiveMetadata = cudlObj.descriptiveMetadata?.[0] ?? {};
-	let metadataArray = [];
-
-	// TODO: handle the case where there is no label but there is an array of items
-	// containing labels (not this is a recursive call)
-	// NOTE: There is no testing for seq on the array of items version
+	let metadata = {};
 	for (const [key, value] of Object.entries(descriptiveMetadata)) {
-		if (value?.label && value?.display && value?.seq) metadataArray.push(value);
+		if (typeof key == 'string' && typeof value == 'string') {
+			metadata[key] = value;
+			//delete descriptiveMetadata[key]; // Remove items during development so we can see what we're missing}
+		}
 	}
-	metadataArray = metadataArray.sort((a, b) => a.seq - b.seq);
-	// console.log(JSON.stringify(metadataArray, null, 2));
+	return metadata;
+}
 
-	// TODO: 'Date of Creation' missing see below link
-	// https://stage.digitalcollections.manchester.ac.uk/view/VS-VPH-00023/1
+// Returns an array of display metadata in the form of key pair values.
+function createDisplayMetadataArray(cudlObj) {
+	let descriptiveMetadata = cudlObj.descriptiveMetadata?.[0] ?? {};
+	let displayMetadataArray = [];
 
-	let data = [];
-	// Format the metadata into final form
-	metadataArray.forEach((item) => {
-		if (item?.displayForm) {
-			data.push({ label: item.label, value: [{ text: item.displayForm }] });
-		} else if (item?.value && item?.value instanceof Array) {
-			let textArray = [];
-			// value should ideally be values but they provide an array named singular
-			// Assume we satisfy the seq, label, display test as this should have happened
-			// prior to getting here in the metadataArray construction.
-			item.value.forEach((value) => {
-				if (value?.displayForm) {
-					let textObj = { text: value.displayForm };
-					// If there is a link, encode it
-					if (value?.linktype === 'keyword search') {
-						textObj.link = `/search?keyword=${encodeURIComponent(value.displayForm)}`;
-					}
-					textArray.push(textObj);
-				}
+	// process the descriptive Metadata recursively
+	processDescriptiveMetadataRecursively(descriptiveMetadata, displayMetadataArray);
+
+	// Sort the results based on seq
+	displayMetadataArray = displayMetadataArray.sort((a, b) => a.seq - b.seq);
+
+	// Create final output format, a sorted array of Objects with {label, value} where
+	// any links have been created etc
+	let formattedDisplayMetadataArray = formatDisplayMetadataArray(displayMetadataArray);
+
+	// Remove any empty values
+	let filteredDisplayMetadataArray = formattedDisplayMetadataArray.filter((item) => {
+		return item.value?.[0]?.text != '';
+	});
+	return filteredDisplayMetadataArray;
+}
+
+function processDescriptiveMetadataRecursively(obj, metadataArray) {
+	for (const [key, value] of Object.entries(obj)) {
+		// console.log(typeof value, key, value);
+		if (value?.label && value?.displayForm && value?.seq) {
+			metadataArray.push(value);
+			//delete obj[key]; // Remove items during development so we can see what we're missing
+		} else if (value?.label && value?.value && value?.seq) {
+			metadataArray.push(value);
+			//delete obj[key]; // Remove items during development so we can see what we're missing
+		} else if (value?.value && value?.seq) {
+			// loop through the value Array and pass each value back into the recursive function
+			value.value.forEach((itemInArray) => {
+				processDescriptiveMetadataRecursively(itemInArray, metadataArray);
 			});
-			// Add the metadata item if there is any value to display
-			if (textArray.length > 0) data.push({ label: item.label, value: textArray });
-			// TODO: Why not using provided authorityURI or valueURI with viaf links?
-			//data.push({ label: item.label, text: item.displayForm });
+			//delete obj[key]; // Remove items during development so we can see what we're missing
+		}
+	}
+}
+
+function formatDisplayMetadataArray(displayMetadataArray) {
+	return displayMetadataArray.map((item) => {
+		if (item.label && item.displayForm) {
+			if (item.linktype) {
+				let link = createSearchLink(item.displayForm);
+				return { label: item.label, value: [{ text: item.displayForm, link }] };
+			} else {
+				return { label: item.label, value: [{ text: item.displayForm }] };
+			}
+		} else if (item.label && item.value) {
+			if (item.value.length > 1) {
+				let list = item.value.map((listItem) => {
+					if (listItem.linktype) {
+						let link = createSearchLink(listItem.displayForm);
+						return { text: listItem.displayForm, link };
+					} else {
+						return { text: listItem.displayForm };
+					}
+				});
+				return { label: item.label, value: list };
+			} else {
+				return { label: item.label, value: [{ text: item.value[0].displayForm }] };
+			}
 		}
 	});
-	// console.log(JSON.stringify(data, null, 2));
+}
 
-	return data;
+function createSearchLink(text) {
+	return `/search?keyword=${encodeURIComponent(text)}`;
 }
 
 // Takes the cudl structure and returns cleaned up contents panel data
@@ -164,3 +201,123 @@ function tidyUpContentsStructure(rawStructure, shelfLocator) {
 	}
 	return structure;
 }
+
+/*
+Example structure from Cambridge PH-GEOGRAPHY-70HS-00048
+{
+  "descriptiveMetadata": [
+    {
+      "thumbnailUrl": "PH-GEOGRAPHY-70HS-00048-000-00001",
+      "thumbnailOrientation": "portrait",
+      "displayImageRights": "Zooming image copyright Cambridge University Collection of Aerial Photography",
+      "downloadImageRights": "Images made available for download are licensed under a Creative Commons Attribution-NonCommercial 3.0 Unported License (CC BY-NC 3.0)",
+      "imageReproPageURL": "https://www.cambridgeairphotos.com/",
+      "metadataRights": "This metadata is licensed under a Creative Commons Attribution-NonCommercial-NoDerivs 3.0 Unported License.",
+      "docAuthority": "",
+      "fundings": {
+        "display": true,
+        "seq": 262,
+        "label": "Funding",
+        "value": [
+          {
+            "display": true,
+            "displayForm": "",
+            "seq": 263
+          }
+        ]
+      },
+      "subjects": {
+        "display": true,
+        "seq": 24,
+        "listDisplay": "inline",
+        "label": "Subject(s)",
+        "value": [
+          {
+            "display": true,
+            "displayForm": "Aerial photography",
+            "seq": 25,
+            "linktype": "keyword search",
+            "fullForm": "Aerial photography"
+          }
+        ]
+      },
+      "ID": "DOCUMENT",
+      "creations": {
+        "display": true,
+        "seq": 103,
+        "value": [
+          {
+            "type": "creation",
+            "places": {
+              "display": true,
+              "seq": 108,
+              "label": "Origin Place",
+              "value": [
+                {
+                  "display": true,
+                  "displayForm": "52.187344 0.13867",
+                  "seq": 109,
+                  "linktype": "keyword search",
+                  "shortForm": "52.187344 0.13867",
+                  "fullForm": "52.187344 0.13867"
+                }
+              ]
+            },
+            "dateStart": "1974",
+            "dateEnd": "1974",
+            "dateDisplay": {
+              "display": true,
+              "displayForm": "07/05/1974 p.m.",
+              "linktype": "keyword search",
+              "label": "Date of Creation",
+              "seq": 117
+            }
+          }
+        ]
+      },
+      "physicalLocation": {
+        "display": true,
+        "displayForm": "Cambridge University Collection of Aerial Photography",
+        "label": "Physical Location",
+        "seq": 4
+      },
+      "shelfLocator": {
+        "display": true,
+        "displayForm": "70H-S48",
+        "label": "Classmark",
+        "seq": 6
+      },
+      "extents": {
+        "display": true,
+        "seq": 226,
+        "label": "Extent",
+        "value": [
+          {
+            "display": true,
+            "displayForm": "1 photograph",
+            "seq": 227
+          }
+        ]
+      },
+      "title": {
+        "display": true,
+        "displayForm": "Cambridge, looking NW",
+        "label": "Title",
+        "seq": 11
+      },
+      "notes": {
+        "display": true,
+        "seq": 217,
+        "label": "Note(s)",
+        "value": [
+          {
+            "display": true,
+            "displayForm": "For full record see <a target='_blank' class='externalLink' href='https://www.cambridgeairphotos.com/location/70h-s48/'>https://www.cambridgeairphotos.com/location/70h-s48/</a>",
+            "seq": 218
+          }
+        ]
+      }
+    }
+  ]
+}
+*/
