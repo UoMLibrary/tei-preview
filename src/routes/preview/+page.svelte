@@ -59,11 +59,33 @@
 	$: runJSONTransform(preTransformXmlDocOutput);
 	$: runViewModelTransform(JSONTransformObjOutput, selectedConfig);
 
+	function bugFix_cleanOutFacsimileElement(xmlString) {
+		let start = xmlString.indexOf('<facsimile>');
+		let end = xmlString.indexOf('</text>') + 7;
+
+		if (start > 0 && end > 0) {
+			let facsTextElems = xmlString.substring(start, end);
+			if (!facsTextElems.includes('<graphic')) {
+				xmlString = `${xmlString.substring(
+					0,
+					start
+				)}<facsimile></facsimile><text></text>${xmlString.substring(end)}`;
+			}
+		}
+		return xmlString;
+	}
+
 	async function runPreTransform(xmlDoc, sefObj) {
 		// browser check to prevent new XMLSerializer being called during a SSR attempt
 		if (!browser || !xmlDoc || !preTransformSef) return (preTransformXmlDocOutput = null);
 
 		let xmlString = new XMLSerializer().serializeToString(xmlDoc.documentElement);
+
+		// BUGFIX: If there is no graphic data the JSON transformation will fail, we can fix this
+		// by clearing out the <facsimile></facsimile><text></text> elements so they are empty
+		// See Toms script - https://bitbucket.org/unimanlibrarydevs/mdc-metadata-api/src/master/clean.py
+		xmlString = bugFix_cleanOutFacsimileElement(xmlString);
+
 		let sefObjCopy = preTransformSef; // TODO: Check if we need to reload each time (see sef store for details)
 
 		let transformConfig = {
