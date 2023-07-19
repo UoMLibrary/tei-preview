@@ -19,6 +19,17 @@ npm run dev -- --open
 docker build --tag tei-preview .
 ```
 
+## Building for Multiplatform
+
+Run a multiplatform build and push it to dockerhub
+
+```bash
+# Requires a login to the docker hub to be pushed to
+docker login
+docker buildx create --use
+docker build --push --platform linux/amd64,linux/arm64/v8 --tag abitofcode/tei-preview:4 .
+```
+
 ## Running the local docker image
 
 ```bash
