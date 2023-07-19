@@ -1,7 +1,6 @@
 <script>
 	// display the metadata key pairs
 	export let metadata = [];
-	console.log(metadata);
 </script>
 
 {#if metadata?.length > 0}

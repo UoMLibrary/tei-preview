@@ -114,7 +114,7 @@ function createDisplayMetadataArray(cudlObj) {
 
 	// Remove any empty values
 	let filteredDisplayMetadataArray = formattedDisplayMetadataArray.filter((item) => {
-		return item.value?.[0]?.text != '';
+		return item && item.value?.[0]?.text != '';
 	});
 	return filteredDisplayMetadataArray;
 }
@@ -158,7 +158,7 @@ function formatDisplayMetadataArray(displayMetadataArray) {
 					}
 				});
 				return { label: item.label, value: list };
-			} else {
+			} else if (item.value.length > 0) {
 				return { label: item.label, value: [{ text: item.value[0].displayForm }] };
 			}
 		}
