@@ -44,7 +44,7 @@ RUN npm run build
 # the standard C library is different.
 # alpine 16 size = 116 MB
 # node 16.18 size = 860 MB
-FROM node:18-alpine
+FROM node:20-alpine
 # RUN apk add --update nodejs npm@9.4.0
 # RUN apk update
 # RUN apk add --update nodejs npm@latest
