@@ -41,6 +41,9 @@
 	let JSONTransformObjOutput; // the output of the JSON transform (transient)
 	let ViewModelOutput; // output of the View model transform (transient)
 
+	let PreTransformError;
+	let JSONtransformError;
+
 	// Reactive statements. Any change to a var/store in the line starting with $:
 	// causes the whole statement to execute
 	$: runPreTransform($TeiStore.xmlDoc, $SefStore?.preTransform);
@@ -64,6 +67,7 @@
 	}
 
 	async function runPreTransform(xmlDoc, sefObj) {
+		PreTransformError = null;
 		// browser check to prevent new XMLSerializer being called during a SSR attempt
 		if (!browser || !xmlDoc || !$SefStore?.preTransform?.sef)
 			return (preTransformXmlDocOutput = null);
@@ -82,14 +86,27 @@
 			destination: 'serialized',
 			stylesheetInternal: sefObjCopy
 		};
-		let transform = await SaxonJS.transform(transformConfig, 'async');
 
-		// TODO: Handle errors
-		let parser = new DOMParser();
-		preTransformXmlDocOutput = parser.parseFromString(transform.principalResult, 'text/xml');
+		try {
+			let transform = await SaxonJS.transform(transformConfig, 'async');
+			let parser = new DOMParser();
+			preTransformXmlDocOutput = parser.parseFromString(transform.principalResult, 'text/xml');
+
+			// if (isParseError(preTransformXmlDocOutput)) {
+			// 	console.log(transform.principalResult);
+			// 	console.log(preTransformXmlDocOutput);
+			// 	const serializer = new XMLSerializer();
+			// 	const xmlStr = serializer.serializeToString(preTransformXmlDocOutput);
+			// 	// preTransformXmlDocOutput = null;
+			// 	throw new Error(xmlStr);
+			// }
+		} catch (error) {
+			PreTransformError = error;
+		}
 	}
 
 	async function runJSONTransform(xmlDoc, sefObj) {
+		JSONtransformError = null;
 		// browser check to prevent new XMLSerializer being called during a SSR attempt
 		if (!browser || !xmlDoc || !$SefStore?.JSONTransform?.sef)
 			return (JSONTransformObjOutput = null);
@@ -102,10 +119,13 @@
 			destination: 'serialized',
 			stylesheetInternal: sefObjCopy
 		};
-		let transform = await SaxonJS.transform(transformConfig, 'async');
 
-		// TODO: Handle errors
-		JSONTransformObjOutput = JSON.parse(transform.principalResult);
+		try {
+			let transform = await SaxonJS.transform(transformConfig, 'async');
+			JSONTransformObjOutput = JSON.parse(transform.principalResult);
+		} catch (error) {
+			JSONtransformError = error;
+		}
 	}
 
 	async function runViewModelTransform(cudlJson, configObj) {
@@ -130,6 +150,22 @@
 		)
 			return false;
 		else return true;
+	}
+
+	// trying this as DomParser always seems to return valid XML
+	// https://stackoverflow.com/questions/11563554/how-do-i-detect-xml-parsing-errors-when-using-javascripts-domparser-in-a-cross
+	function isParseError(parsedDocument) {
+		// parser and parsererrorNS could be cached on startup for efficiency
+		var parser = new DOMParser(),
+			errorneousParse = parser.parseFromString('<', 'text/xml'),
+			parsererrorNS = errorneousParse.getElementsByTagName('parsererror')[0].namespaceURI;
+
+		if (parsererrorNS === 'http://www.w3.org/1999/xhtml') {
+			// In PhantomJS the parseerror element doesn't seem to have a special namespace, so we are just guessing here :(
+			return parsedDocument.getElementsByTagName('parsererror').length > 0;
+		}
+
+		return parsedDocument.getElementsByTagNameNS(parsererrorNS, 'parsererror').length > 0;
 	}
 
 	// Handle page navigation from Preview internal components.
@@ -163,6 +199,17 @@
 		<Icon data={faArrowDown} style="color: #666666" scale="1.2" />
 	</div>
 
+	{#if PreTransformError}
+		<div class="rounded-md bg-red-50 mb-4 text-xs p-2 border-red-400 border-2">
+			<p class="pb-2">
+				<strong>{PreTransformError.name}</strong>
+				<span class="text-sm">({PreTransformError.code})</span>
+			</p>
+			<p class="pb-2">{PreTransformError.message}</p>
+			<pre class="text-sm">{PreTransformError.stack}</pre>
+		</div>
+	{/if}
+
 	<!-- XML Viewer that contains preFilter transform XSLT output -->
 	<XMLViewerPanel
 		title="XML output from Pre filter transformation"
@@ -188,6 +235,17 @@
 	<div class="flex justify-center mb-4">
 		<Icon data={faArrowDown} style="color: #666666" scale="1.2" />
 	</div>
+
+	{#if JSONtransformError}
+		<div class="rounded-md bg-red-50 mb-4 text-xs p-2 border-red-400 border-2">
+			<p class="pb-2">
+				<strong>{JSONtransformError.name}</strong>
+				{#if JSONtransformError.code}<span class="text-sm">({JSONtransformError.code})</span>{/if}
+			</p>
+			<p class="pb-2">{JSONtransformError.message}</p>
+			<pre class="text-sm">{JSONtransformError.stack}</pre>
+		</div>
+	{/if}
 
 	<!-- JSON Viewer that contains JSONtransform XSLT output -->
 	<JSONViewer
