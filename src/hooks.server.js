@@ -4,7 +4,11 @@ import { error, json, text } from '@sveltejs/kit';
    	place for initializing database clients and so on.
 */
 let allowedPOSTPaths = ['/preview/posted'];
-let allowedOrigins = ['http://192.168.1.129:5173', 'http://localhost:5173'];
+let allowedOrigins = [
+	'http://192.168.1.129:5173',
+	'http://localhost:5173',
+	'https://tools.digitallibrarytools.com'
+];
 
 /* 
 	**handle**

@@ -74,5 +74,9 @@ We handle the csrf check in _hooks.server.js_
 // Specify routes to allow POST data
 let allowedPOSTPaths = ['/preview/posted'];
 // Specify Origins able to send POST data
-let allowedOrigins = ['http://localhost:5173', 'http://192.168.1.176:5173'];
+let allowedOrigins = [
+	'http://localhost:5173',
+	'http://192.168.1.176:5173',
+	'https://tools.digitallibrarytools.com'
+];
 ```
