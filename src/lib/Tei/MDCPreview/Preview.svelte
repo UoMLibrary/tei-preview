@@ -1,9 +1,9 @@
 <script>
 	// Preview UI Components
-	import Header from './Preview/Header.svelte';
-	import TitleBar from './Preview/TitleBar.svelte';
-	import ImageViewer from './Preview/ImageViewer.svelte';
-	import ItemPanel from './Preview/ItemPanel.svelte';
+	import Header from '$lib/Tei/MDCPreview/Preview/Header.svelte';
+	import TitleBar from '$lib/Tei/MDCPreview/Preview/TitleBar.svelte';
+	import ImageViewer from '$lib/Tei/MDCPreview/Preview/ImageViewer.svelte';
+	import ItemPanel from '$lib/Tei/MDCPreview/Preview/ItemPanel.svelte';
 
 	import { createEventDispatcher } from 'svelte';
 	const dispatch = createEventDispatcher();
@@ -18,7 +18,7 @@
 <TitleBar
 	title="My Item"
 	{page}
-	pageTotal={viewModel.pages.length}
+	pageTotal={viewModel?.pages?.length ||0}
 	pdfData={viewModel.pdfObj}
 	on:updatepage
 />
