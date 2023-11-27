@@ -74,8 +74,9 @@
 		loading = false;
 	});
 
-	function changePage(pageNum) {
-		console.log(`Page: ${pageNum}`);
+	// Handle page navigation from Preview internal components.
+	function changePage(event) {
+		page = event.detail.page;
 	}
 
 	// BUGFIX: If there is no graphic data the JSON transformation will fail, we can fix this
