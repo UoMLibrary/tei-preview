@@ -2,7 +2,7 @@
 
 # web-tei-preview
 
-**NOTE: PAT for web-tei-preview Needs renewing 05 Aug 2025 and adding back to Secrets in mdc-tools GitHub Repository**
+**NOTE: PAT for web-tei-preview Needs renewing 05 Aug 2025 and adding back to Secrets in web-tei-preview GitHub Repository**
 
 ## Running in dev mode
 
